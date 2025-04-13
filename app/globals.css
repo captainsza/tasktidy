@@ -1,26 +1,92 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* Import font at the very beginning */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* Tailwind directives */
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
 
-@media (prefers-color-scheme: dark) {
+/* Base styles */
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --foreground-rgb: 0, 0, 0;
+    --background-start: #ffffff;
+    --background-end: #f5f5f5;
+    --font-family-sans: 'Inter', sans-serif;
+  }
+
+  .dark {
+    --foreground-rgb: 255, 255, 255;
+    --background-start: #0a192f;
+    --background-end: #112240;
+  }
+
+  html {
+    height: 100%;
+  }
+
+  body {
+    color: rgb(var(--foreground-rgb));
+    background-color: #f9fafb;
+    font-family: var(--font-family-sans);
+  }
+
+  .dark body {
+    background: linear-gradient(to bottom right, var(--background-start), var(--background-end));
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Custom components */
+@layer components {
+  .glass-effect {
+    @apply bg-white/10 backdrop-blur-md border border-white/20 shadow-lg;
+  }
+
+  .glass-effect-dark {
+    @apply bg-dark-navy/80 backdrop-blur-md border border-white/5 shadow-lg;
+  }
+  
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-600;
+  }
+  
+  .btn {
+    @apply px-4 py-2 rounded font-medium transition-all;
+  }
+  
+  .btn-primary {
+    @apply bg-blue-500 text-white hover:bg-blue-600;
+  }
+  
+  .card {
+    @apply rounded-lg p-4 shadow-lg;
+  }
+}
+
+/* Custom utilities */
+@layer utilities {
+  .transition-standard {
+    @apply transition-all duration-300 ease-in-out;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
 }
